@@ -1,10 +1,4 @@
-import {
-  IsInt,
-  IsUrl,
-  Max,
-  Min,
-  validateSync,
-} from 'class-validator';
+import { IsInt, IsUrl, Max, Min, validateSync } from 'class-validator';
 import { plainToInstance, Type } from 'class-transformer';
 
 export class Env {

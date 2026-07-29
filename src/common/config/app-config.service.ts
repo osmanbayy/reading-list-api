@@ -4,9 +4,7 @@ import type { AppConfig } from './app.config';
 
 @Injectable()
 export class AppConfigService {
-  constructor(
-    private readonly configService: ConfigService<AppConfig, true>,
-  ) { }
+  constructor(private readonly configService: ConfigService<AppConfig, true>) {}
 
   get port(): number {
     return this.configService.getOrThrow('port', { infer: true });
