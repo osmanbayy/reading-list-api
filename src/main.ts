@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 import { AppConfigService } from './common/config/app-config.service';
+import { setupSwagger } from './common/swagger/swagger.config';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,8 @@ async function bootstrap(): Promise<void> {
       transform: true,
     }),
   );
+
+  setupSwagger(app);
 
   const config = app.get(AppConfigService);
 
