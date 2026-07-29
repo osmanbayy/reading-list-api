@@ -19,7 +19,7 @@ export class BooksService {
     @Inject(BOOK_REPOSITORY)
     private readonly bookRepository: IBookRepository,
     private readonly redisService: RedisService,
-  ) { }
+  ) {}
 
   async create(data: CreateBookDto): Promise<BookEntity> {
     return this.bookRepository.create(data);
