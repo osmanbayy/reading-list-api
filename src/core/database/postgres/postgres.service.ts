@@ -25,8 +25,12 @@ export class PostgresService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit(): Promise<void> {
-    await this.database.execute(sql`SELECT 1`);
+    await this.ping();
     this.logger.log('PostgreSQL connection established');
+  }
+
+  async ping(): Promise<void> {
+    await this.database.execute(sql`SELECT 1`);
   }
 
   async onModuleDestroy(): Promise<void> {
