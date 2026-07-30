@@ -1,0 +1,52 @@
+name: Continuous Integration
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  quality-check:
+    name: Lint, Type Check and Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Get pnpm store path
+        id: pnpm-store
+        shell: bash
+        run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache dependencies
+        uses: actions/cache@v6
+        with:
+          path: |
+            ${{ steps.pnpm-store.outputs.path }}
+            node_modules
+          key: ${{ runner.os }}-node-22-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-22-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint:check
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
