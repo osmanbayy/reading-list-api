@@ -5,9 +5,10 @@ services:
       dockerfile: Dockerfile
 
     image: reading-list-api:compose
+    restart: unless-stopped
 
     ports:
-      - "${PORT}:3000"
+      - "127.0.0.1:${PORT}:3000"
 
     environment:
       PORT: 3000
@@ -35,6 +36,7 @@ services:
 
   postgres:
     image: postgres:15-alpine
+    restart: unless-stopped
 
     environment:
       POSTGRES_DB: "${POSTGRES_DB}"
@@ -61,6 +63,7 @@ services:
 
   redis:
     image: redis:8-alpine
+    restart: unless-stopped
 
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
