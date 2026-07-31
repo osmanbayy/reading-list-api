@@ -7,8 +7,6 @@ import { setupSwagger } from './common/swagger/swagger.config';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
-  const lintFailureTestValue = 'CI lint failure test';
-
   app.enableShutdownHooks();
 
   app.useGlobalPipes(
