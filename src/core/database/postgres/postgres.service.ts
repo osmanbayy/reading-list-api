@@ -30,7 +30,7 @@ export class PostgresService implements OnModuleInit, OnModuleDestroy {
   }
 
   async ping(): Promise<void> {
-    await this.database.execute(sql`SELECT 1`);
+    await this.database.execute(sql`SELECT 1;`);
   }
 
   async onModuleDestroy(): Promise<void> {
